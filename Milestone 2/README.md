@@ -1,43 +1,44 @@
-FitPulse Health Anomaly Detection – Milestone 2
-Feature Extraction, Trend Modeling, and Behavioral Clustering
-1. Objective
+# FitPulse Health Anomaly Detection – Milestone 2
+## Feature Extraction, Trend Modeling, and Behavioral Pattern Analysis
 
-The primary objective of this milestone is to derive meaningful insights from the preprocessed fitness dataset created in Milestone 1. This is achieved by extracting statistical and time-series features, modeling temporal trends, and identifying behavioral patterns using unsupervised learning techniques. The outcomes of this milestone establish the analytical foundation required for anomaly detection in subsequent phases of the project.
+### 1. Objective
 
-2. Dataset Description
+The primary objective of this milestone is to extract meaningful statistical and time-series features from the preprocessed fitness dataset generated in Milestone 1. This milestone also focuses on modeling temporal trends and identifying behavioral patterns using unsupervised learning techniques. These steps establish the analytical groundwork required for detecting anomalies in subsequent project phases.
 
-This milestone operates on the cleaned and consolidated dataset generated in Milestone 1. The dataset contains timestamped fitness measurements aggregated at a consistent temporal resolution.
+### 2. Dataset Description
 
-Key Metrics Analyzed:
+This milestone uses the cleaned and consolidated dataset produced in Milestone 1, which contains timestamped fitness measurements collected from wearable devices.
 
-Heart rate
+Metrics Analyzed:
 
-Daily step count
+Heart Rate
 
-Sleep duration
+Daily Step Count
 
-Stress level
+Sleep Duration
 
-Data Characteristics:
+Stress Level
 
-Each record represents a user observation with an associated timestamp
+### Data Characteristics:
 
-Limited per-user temporal depth, requiring global trend modeling
+Timestamped observations across multiple users
 
-Includes both physiological signals and activity-related attributes
+Limited per-user temporal depth
 
-3. Steps Performed
-Step 1: Feature Extraction Using TSFresh
+Combination of physiological signals and activity-related data
 
-Applied TSFresh to automatically extract time-series features from heart rate, steps, sleep duration, and stress level data.
+### 3. Steps Performed
+#### Step 1: Automated Time-Series Feature Extraction
 
-Extracted features include temporal, statistical, and frequency-based characteristics such as Fourier coefficients and wavelet transforms.
+Applied TSFresh to automatically extract time-series features from heart rate, daily steps, sleep duration, and stress level data.
 
-Missing and non-finite feature values were handled using TSFresh’s imputation utilities.
+Extracted features include statistical, temporal, and frequency-based characteristics such as Fourier coefficients and wavelet transforms.
 
-Step 2: Statistical Feature Computation
+Handled missing and non-finite values using TSFresh imputation utilities.
 
-Computed statistical features for each user to summarize behavioral patterns:
+####  Step 2: Statistical Feature Computation
+
+Computed descriptive statistical features for each user to summarize behavioral patterns:
 
 Mean
 
@@ -47,47 +48,47 @@ Skewness
 
 Kurtosis
 
-These features provide a compact representation of physiological and activity-related behavior.
+These features provide an interpretable summary of physiological and activity-related behavior.
 
-Step 3: Feature Selection
+####  Step 3: Feature Selection
 
-Applied variance thresholding to remove low-variance and non-informative features.
+Applied variance thresholding to remove low-variance and non-informative features from the extracted feature set.
 
-Reduced the dimensionality of the extracted feature set while preserving relevant behavioral signals.
+Reduced feature dimensionality while preserving relevant behavioral information for downstream analysis.
 
-Step 4: Trend Modeling with Facebook Prophet
+####  Step 4: Temporal Trend Modeling
 
-Applied Facebook Prophet to model temporal and seasonal trends in the fitness data.
+Applied Facebook Prophet to model temporal and seasonal trends in heart rate, steps, and sleep duration data.
 
-Modeled daily and weekly seasonality for heart rate, steps, and sleep duration.
+Captured daily and weekly seasonality present in the dataset.
 
-Forecasted expected values for each metric over time.
+Generated forecasts representing expected behavioral patterns over time.
 
-Step 5: Residual and Deviation Analysis
+#### Step 5: Deviation and Residual Analysis
 
-Computed residuals as the difference between observed values and Prophet forecasts.
+Computed residuals as the difference between observed values and Prophet-generated forecasts.
 
-Residuals represent deviations from expected behavior and serve as indicators of unusual or abnormal patterns.
+Used residuals to identify deviations from expected behavior, serving as indicators of unusual or abnormal patterns.
 
-Generated visualizations of trends with confidence intervals and residual plots to support interpretability.
+Visualized trends with confidence intervals and corresponding residual plots.
 
-Step 6: Dimensionality Reduction
+#### Step 6: Dimensionality Reduction
 
-Applied Principal Component Analysis to reduce the high-dimensional feature space into two components.
+Applied Principal Component Analysis to project the high-dimensional feature space into two principal components.
 
-Enabled efficient visualization and clustering of user behavior patterns.
+Enabled effective visualization and interpretation of behavioral patterns.
 
-Step 7: Behavioral Pattern Clustering
+#### Step 7: Behavioral Pattern Clustering
 
-Applied unsupervised clustering techniques to identify behavioral groups:
+Applied unsupervised clustering techniques to group users based on behavioral similarity:
 
-KMeans clustering to group users with similar fitness behavior
+KMeans clustering to identify common behavioral groups
 
-DBSCAN clustering to identify dense clusters and detect atypical or anomalous users
+DBSCAN clustering to detect dense clusters and isolate atypical or anomalous behavior
 
-DBSCAN noise points were interpreted as atypical behavioral patterns.
+Interpreted DBSCAN noise points as indicators of atypical behavior.
 
-4. Tools Used
+#### 4. Tools Used
 
 Python: Core programming language
 
@@ -97,22 +98,22 @@ NumPy: Numerical computations
 
 TSFresh: Automated time-series feature extraction
 
-Facebook Prophet: Trend modeling and forecasting
+Facebook Prophet: Temporal trend modeling and forecasting
 
-Scikit-learn: Feature selection, PCA, and clustering
+Scikit-learn: Feature selection, dimensionality reduction, and clustering
 
 Matplotlib and Seaborn: Visualization of trends and clusters
 
-5. Key Insights
+#### 5. Key Insights
 
-Automated time-series feature extraction captures complex behavioral patterns that are not easily represented by raw signals.
+Automated time-series feature extraction captures complex behavioral characteristics beyond raw fitness signals.
 
-Statistical features provide an interpretable summary of user fitness behavior.
+Statistical features provide clear and interpretable summaries of user behavior.
 
-Prophet effectively models seasonal and temporal trends, enabling deviation-based analysis.
+Prophet effectively models temporal and seasonal trends, enabling deviation-based analysis.
 
-Residual analysis highlights periods of abnormal or unexpected behavior.
+Residual analysis highlights periods of unexpected or abnormal behavior.
 
 Unsupervised clustering reveals distinct behavioral groups and isolates atypical patterns.
 
-PCA significantly improves interpretability by enabling low-dimensional visualization of high-dimensional data.
+PCA improves interpretability by enabling low-dimensional visualization of high-dimensional feature sets.
