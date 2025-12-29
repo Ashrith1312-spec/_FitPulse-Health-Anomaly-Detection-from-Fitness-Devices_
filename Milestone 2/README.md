@@ -88,7 +88,7 @@ DBSCAN clustering to detect dense clusters and isolate atypical or anomalous beh
 
 Interpreted DBSCAN noise points as indicators of atypical behavior.
 
-#### 4. Tools Used
+### 4. Tools Used
 
 Python: Core programming language
 
@@ -104,7 +104,7 @@ Scikit-learn: Feature selection, dimensionality reduction, and clustering
 
 Matplotlib and Seaborn: Visualization of trends and clusters
 
-#### 5. Key Insights
+### 5. Key Insights
 
 Automated time-series feature extraction captures complex behavioral characteristics beyond raw fitness signals.
 
