@@ -3,23 +3,63 @@
 
 ### 1. Objective
 
-The primary objective of this milestone is to extract meaningful statistical and time-series features from the preprocessed fitness dataset generated in Milestone 1. This milestone also focuses on modeling temporal trends and identifying behavioral patterns using unsupervised learning techniques. These steps establish the analytical groundwork required for detecting anomalies in subsequent project phases.
+The primary objective of Milestone 2 is to extract meaningful statistical and time-series features from the preprocessed fitness dataset generated in Milestone 1. In addition, this milestone focuses on modeling temporal trends and exploring behavioral patterns using unsupervised learning techniques. These steps help build the analytical groundwork required for anomaly detection and behavioral analysis in later stages of the project.
 
 ### 2. Dataset Description
 
-This milestone uses the cleaned and consolidated dataset produced in Milestone 1, which contains timestamped fitness measurements collected from wearable devices.
+This milestone uses a cleaned and consolidated dataset derived from wearable fitness tracking data. The dataset was produced as the final output of Milestone 1 after performing data ingestion, timestamp normalization, aggregation, and missing-value handling.
 
-Metrics Analyzed:
+### Dataset File
 
-Heart Rate
+Filename: Clean.csv
 
-Daily Step Count
+Format: CSV (Comma-Separated Values)
 
-Sleep Duration
+### Dataset Structure
 
-Stress Level
+Total Records: 374
 
-### Data Characteristics:
+Total Features: 17
+
+Primary Identifier: person_id
+
+Temporal Attribute: timestamp
+
+Each row represents a timestamped observation for an individual user, capturing physiological, activity-based, and lifestyle-related metrics.
+
+### Variables Included
+
+Time-Series Variables (Dynamic Features):
+
+heart_rate – Heart rate measurements
+
+daily_steps – Number of steps recorded
+
+sleep_duration – Total sleep duration
+
+stress_level – Stress indicator
+
+These variables are treated as time-series signals and are used for automated feature extraction, trend modeling, and behavioral analysis.
+
+### Demographic and Lifestyle Variables (Static / Categorical Features):
+
+gender
+
+age
+
+occupation
+
+job_category
+
+bmi_category
+
+weight_category
+
+sleep_disorder
+
+These attributes provide contextual information about users and are incorporated as metadata during feature construction and clustering.
+
+### Data Characteristics
 
 Timestamped observations across multiple users
 
@@ -27,18 +67,18 @@ Limited per-user temporal depth
 
 Combination of physiological signals and activity-related data
 
+Suitable for time-series feature extraction and unsupervised learning
+
 ### 3. Steps Performed
 #### Step 1: Automated Time-Series Feature Extraction
 
-Applied TSFresh to automatically extract time-series features from heart rate, daily steps, sleep duration, and stress level data.
-
-Extracted features include statistical, temporal, and frequency-based characteristics such as Fourier coefficients and wavelet transforms.
-
-Handled missing and non-finite values using TSFresh imputation utilities.
+TSFresh was applied to automatically extract high-level time-series features from heart rate, daily steps, sleep duration, and stress level data.
+The extracted features include statistical, temporal, and frequency-based characteristics such as Fourier coefficients and wavelet-based features.
+Missing and non-finite values were handled using TSFresh imputation utilities to maintain numerical stability.
 
 ####  Step 2: Statistical Feature Computation
 
-Computed descriptive statistical features for each user to summarize behavioral patterns:
+In addition to automated features, descriptive statistical features were computed for each user to summarize behavioral patterns:
 
 Mean
 
@@ -48,72 +88,64 @@ Skewness
 
 Kurtosis
 
-These features provide an interpretable summary of physiological and activity-related behavior.
-
+These statistics provide interpretable summaries of individual physiological and activity-related behavior.
 ####  Step 3: Feature Selection
 
-Applied variance thresholding to remove low-variance and non-informative features from the extracted feature set.
-
-Reduced feature dimensionality while preserving relevant behavioral information for downstream analysis.
+Variance thresholding was applied to remove low-variance and non-informative features from the extracted feature set.
+This approach was chosen to reduce noise introduced by high-dimensional automated features while retaining behaviorally relevant information for further analysis.
 
 ####  Step 4: Temporal Trend Modeling
 
-Applied Facebook Prophet to model temporal and seasonal trends in heart rate, steps, and sleep duration data.
-
-Captured daily and weekly seasonality present in the dataset.
-
-Generated forecasts representing expected behavioral patterns over time.
+Facebook Prophet was used to model global temporal and seasonal trends in heart rate, daily steps, sleep duration, and stress level data.
+Daily and weekly seasonality patterns observed in the dataset were captured, and forecasts were generated to represent expected population-level behavioral trends over time.
 
 #### Step 5: Deviation and Residual Analysis
 
-Computed residuals as the difference between observed values and Prophet-generated forecasts.
-
-Used residuals to identify deviations from expected behavior, serving as indicators of unusual or abnormal patterns.
-
-Visualized trends with confidence intervals and corresponding residual plots.
+Residuals were computed as the difference between observed values and Prophet-generated forecasts.
+These residuals were examined to identify deviations from expected behavior, which may indicate unusual or irregular patterns.
+Trend plots with confidence intervals and corresponding residual plots were used to support visual interpretation.
 
 #### Step 6: Dimensionality Reduction
 
-Applied Principal Component Analysis to project the high-dimensional feature space into two principal components.
-
-Enabled effective visualization and interpretation of behavioral patterns.
+Principal Component Analysis (PCA) was applied to project the high-dimensional feature space into two principal components.
+This step helped simplify visualization and interpretation while preserving most of the variance present in the original feature set.
 
 #### Step 7: Behavioral Pattern Clustering
 
-Applied unsupervised clustering techniques to group users based on behavioral similarity:
+Unsupervised clustering techniques were applied to group users based on behavioral similarity:
 
-KMeans clustering to identify common behavioral groups
+KMeans clustering was used to identify common behavioral groups
 
-DBSCAN clustering to detect dense clusters and isolate atypical or anomalous behavior
+DBSCAN clustering was applied to additionally detect dense clusters and isolate atypical or outlier behavior
 
-Interpreted DBSCAN noise points as indicators of atypical behavior.
+Noise points identified by DBSCAN were interpreted as indicators of potentially atypical behavioral patterns.
 
 ### 4. Tools Used
 
-Python: Core programming language
+Python – Core programming language
 
-Pandas: Data manipulation and aggregation
+Pandas – Data manipulation and aggregation
 
-NumPy: Numerical computations
+NumPy – Numerical computations
 
-TSFresh: Automated time-series feature extraction
+TSFresh – Automated time-series feature extraction
 
-Facebook Prophet: Temporal trend modeling and forecasting
+Facebook Prophet – Temporal trend modeling and forecasting
 
-Scikit-learn: Feature selection, dimensionality reduction, and clustering
+Scikit-learn – Feature selection, dimensionality reduction, and clustering
 
-Matplotlib and Seaborn: Visualization of trends and clusters
+Matplotlib & Seaborn – Visualization of trends and behavioral clusters
 
 ### 5. Key Insights
 
-Automated time-series feature extraction captures complex behavioral characteristics beyond raw fitness signals.
+Automated time-series feature extraction helped capture behavioral characteristics beyond raw fitness signals.
 
-Statistical features provide clear and interpretable summaries of user behavior.
+Statistical features provided clear and interpretable summaries of user behavior.
 
-Prophet effectively models temporal and seasonal trends, enabling deviation-based analysis.
+Prophet was effective in modeling temporal and seasonal trends observed in the dataset.
 
-Residual analysis highlights periods of unexpected or abnormal behavior.
+Residual analysis highlighted periods of unexpected or irregular behavior.
 
-Unsupervised clustering reveals distinct behavioral groups and isolates atypical patterns.
+Unsupervised clustering revealed distinct behavioral groups and helped isolate atypical patterns.
 
-PCA improves interpretability by enabling low-dimensional visualization of high-dimensional feature sets.
+PCA improved interpretability by enabling low-dimensional visualization of high-dimensional feature sets.
